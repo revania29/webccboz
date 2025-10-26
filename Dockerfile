@@ -15,9 +15,11 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
-RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 COPY . .
+
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
