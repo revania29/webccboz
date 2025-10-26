@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                sh 'echo "Mulai build aplikasi..."'
+                bat 'echo "Mulai build aplikasi..."'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline build selesai.' 
+            echo 'Pipeline build selesai.'
         }
     }
 }
