@@ -2,28 +2,28 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'revania/laravel-crud-app' [cite: 68]
-        REGISTRY = 'https://index.docker.io/v1/' [cite: 69]
-        REGISTRY_CREDENTIALS = 'credentials-webcc' [cite: 70]
+        IMAGE_NAME = 'revania/laravel-crud-app'
+        REGISTRY = 'https://index.docker.io/v1/'
+        REGISTRY_CREDENTIALS = 'credentials-webcc'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm [cite: 72]
+                checkout scm
             }
         }
 
         stage('Build Application') {
             steps {
-                sh 'echo "Mulai build aplikasi..."' [cite: 75]
+                sh 'echo "Mulai build aplikasi..."'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}") [cite: 78]
+                    docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -31,13 +31,13 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry(REGISTRY, REGISTRY_CREDENTIALS) { [cite: 82]
+                    docker.withRegistry(REGISTRY, REGISTRY_CREDENTIALS) {
 
-                        def tag = "${IMAGE_NAME}:${env.BUILD_NUMBER}" [cite: 83]
+                        def tag = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
 
-                        docker.image(tag).push() [cite: 84]
+                        docker.image(tag).push()
 
-                        docker.image(tag).push('latest') [cite: 85]
+                        docker.image(tag).push('latest')
                     }
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline build selesai.' [cite: 88]
+            echo 'Pipeline build selesai.' 
         }
     }
 }
